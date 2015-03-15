@@ -5,6 +5,9 @@
 *.suo
 *.user
 *.sln.docstates
+[Ee]xternal/
+[Tt]emp/
+[Bb]uilds/
 
 # Build results
 [Dd]ebug/
