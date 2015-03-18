@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 #include <tyga/Application.hpp>
-#include "MyDemo.hpp"
+#include <Framework/MyDemo.hpp>
 
 int main(int argc, char *argv[])
 {

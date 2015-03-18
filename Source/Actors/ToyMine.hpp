@@ -1,7 +1,7 @@
 #pragma once
 
 #include <tyga/ActorDelegate.hpp>
-#include "MyPhysicsCentre.hpp"
+#include <Physics/MyPhysicsCentre.hpp>
 
 class ToyMine : public tyga::ActorDelegate
 {

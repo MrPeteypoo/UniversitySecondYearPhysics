@@ -1,8 +1,8 @@
 #include "MyDemo.hpp"
 #include "Badger.hpp"
 #include "Camera.hpp"
-#include "ToyMine.hpp"
-#include "MyPhysicsCentre.hpp"
+#include <Actors/ToyMine.hpp>
+#include <Physics/MyPhysicsCentre.hpp>
 #include <tyga/Application.hpp>
 #include <tyga/ActorWorld.hpp>
 #include <tyga/InputStateProtocol.hpp>

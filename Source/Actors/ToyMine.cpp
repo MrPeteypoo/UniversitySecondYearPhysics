@@ -1,5 +1,4 @@
 #include "ToyMine.hpp"
-#include "MyUtils.hpp"
 #include <tyga/Actor.hpp>
 #include <tyga/BasicWorldClock.hpp>
 #include <tyga/Math.hpp>

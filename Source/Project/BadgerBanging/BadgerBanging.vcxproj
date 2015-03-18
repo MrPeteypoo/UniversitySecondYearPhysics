@@ -63,7 +63,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_USE_MATH_DEFINES;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)../../External/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../../External/include;$(SolutionDir)../</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_USE_MATH_DEFINES;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)../../External/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../../External/include;$(SolutionDir)../</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,20 +102,20 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Badger.hpp" />
-    <ClInclude Include="..\..\Camera.hpp" />
-    <ClInclude Include="..\..\MyDemo.hpp" />
-    <ClInclude Include="..\..\MyPhysicsCentre.hpp" />
-    <ClInclude Include="..\..\MyUtils.hpp" />
-    <ClInclude Include="..\..\ToyMine.hpp" />
+    <ClCompile Include="..\..\Actors\ToyMine.cpp" />
+    <ClCompile Include="..\..\Framework\Camera.cpp" />
+    <ClCompile Include="..\..\Framework\MyDemo.cpp" />
+    <ClCompile Include="..\..\main.cpp" />
+    <ClCompile Include="..\..\Physics\MyPhysicsCentre.cpp" />
+    <ClCompile Include="..\..\Utility\MyUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Camera.cpp" />
-    <ClCompile Include="..\..\main.cpp" />
-    <ClCompile Include="..\..\MyDemo.cpp" />
-    <ClCompile Include="..\..\MyPhysicsCentre.cpp" />
-    <ClCompile Include="..\..\MyUtils.cpp" />
-    <ClCompile Include="..\..\ToyMine.cpp" />
+    <ClInclude Include="..\..\Actors\ToyMine.hpp" />
+    <ClInclude Include="..\..\Framework\Badger.hpp" />
+    <ClInclude Include="..\..\Framework\Camera.hpp" />
+    <ClInclude Include="..\..\Framework\MyDemo.hpp" />
+    <ClInclude Include="..\..\Physics\MyPhysicsCentre.hpp" />
+    <ClInclude Include="..\..\Utility\MyUtils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
