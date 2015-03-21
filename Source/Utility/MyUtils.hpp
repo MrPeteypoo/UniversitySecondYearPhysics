@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <tyga/Math.hpp>
 
 /*
@@ -10,6 +11,6 @@
 namespace util
 {
 
-tyga::Matrix4x4 translate(float x, float y, float z);
+    tyga::Matrix4x4 translate(float x, float y, float z);
 
 }

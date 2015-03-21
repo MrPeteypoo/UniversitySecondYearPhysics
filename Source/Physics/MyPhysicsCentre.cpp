@@ -192,11 +192,14 @@ runloopExecuteTask()
 
             tyga::Vector3 translation { };
 
-            const auto acceleration = object.force / object.mass + gravity;
+            const auto acceleration = (object.force / object.mass + gravity);
 
-            const auto& calcAccel = [&acceleration] (const tyga::Vector3& position, const tyga::Vector3& velocity, const float deltaTime)
+            const auto& calcAccel = [&] (const tyga::Vector3& position, const tyga::Vector3& velocity, const float deltaTime)
             {
-                return acceleration;
+                //return acceleration;
+                const float k = 1.0f;
+                const float b = 0.3f;
+                return (-k * position - b * velocity + object.force) / object.mass + gravity;
             };
             
             RK4Integrator<tyga::Vector3, float>::integrate (translation, object.velocity, calcAccel, 0, deltaTime);
