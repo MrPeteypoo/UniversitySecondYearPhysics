@@ -15,6 +15,9 @@
       <Extensions>
       </Extensions>
     </Filter>
+    <Filter Include="Maths">
+      <UniqueIdentifier>{e2d6ecc0-0d6a-4e38-9fd8-e9e202d65a06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Physics\MyPhysicsCentre.cpp">
@@ -54,6 +57,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Utility\MyUtils.hpp">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Maths\EulerIntegrator.hpp">
+      <Filter>Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Maths\RK4Integrator.hpp">
+      <Filter>Maths</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

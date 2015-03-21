@@ -114,6 +114,8 @@
     <ClInclude Include="..\..\Framework\Badger.hpp" />
     <ClInclude Include="..\..\Framework\Camera.hpp" />
     <ClInclude Include="..\..\Framework\MyDemo.hpp" />
+    <ClInclude Include="..\..\Maths\EulerIntegrator.hpp" />
+    <ClInclude Include="..\..\Maths\RK4Integrator.hpp" />
     <ClInclude Include="..\..\Physics\MyPhysicsCentre.hpp" />
     <ClInclude Include="..\..\Utility\MyUtils.hpp" />
   </ItemGroup>
