@@ -1,6 +1,10 @@
 #include "MyPhysicsCentre.hpp"
 #include <tyga/BasicWorldClock.hpp>
 #include <tyga/Log.hpp>
+#include <Maths/RK4Integrator.hpp>
+#include <Maths/EulerIntegrator.hpp>
+#include <cassert>
+#include <Utility/MyUtils.hpp>
 
 //namespace your_name_here
 //{
@@ -168,24 +172,43 @@ runloopWillBegin()
 void MyPhysicsCentre::
 runloopExecuteTask()
 {
-    const float time = tyga::BasicWorldClock::CurrentTime();
-    const float delta_time = tyga::BasicWorldClock::CurrentTickInterval();
+    // Obtain the frames current time values.
+    const float time      = tyga::BasicWorldClock::CurrentTime();
+    const float deltaTime = tyga::BasicWorldClock::CurrentTickInterval();
 
-    for (auto ptr : spheres_) {
-        // only continue if a strong reference is available
-        if (ptr.expired()) continue;
-        auto model = ptr.lock();
+    const auto gravity    = tyga::Vector3 (0.f, -9.81f, 0.f);
 
-        // only continue if the model is attached to an actor
-        auto actor = model->Actor();
-        if (actor == nullptr) continue;
+    for (const auto& ptr : spheres_) 
+    {
+        // Only process the sphere if the object exists and it has an actor.
+        const auto model = ptr.lock();
+        const auto actor = model ? model->Actor() : nullptr;
+        
+        if (actor) 
+        { 
+            // Cache the physics object.
+            auto& object = *model;
+            assert (object.mass != 0);
 
-        // TODO: perform the physics (kinetic motion) update
+            tyga::Vector3 translation { };
 
-        // TODO: update the actor's transformation
+            const auto acceleration = object.force / object.mass + gravity;
 
-        // reset the force
-        model->force = tyga::Vector3(0,0,0);
+            const auto& calcAccel = [&acceleration] (const tyga::Vector3& position, const tyga::Vector3& velocity, const float deltaTime)
+            {
+                return acceleration;
+            };
+            
+            RK4Integrator<tyga::Vector3, float>::integrate (translation, object.velocity, calcAccel, 0, deltaTime);
+            //EulerIntegrator<tyga::Vector3, float>::integrate (translation, object.velocity, acceleration, deltaTime);
+
+            
+            // TODO: update the actor's transformation
+            actor->setTransformation (actor->Transformation() * util::translate (translation.x, translation.y, translation.z));
+
+            // reset the force
+            model->force = tyga::Vector3(0,0,0);
+        }
     }
 }
 
