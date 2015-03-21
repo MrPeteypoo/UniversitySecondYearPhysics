@@ -7,7 +7,7 @@
  *           and define your own helper functions.
  */
 
-namespace your_name_here
+namespace util
 {
 
 tyga::Matrix4x4 translate(float x, float y, float z);
