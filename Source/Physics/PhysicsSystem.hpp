@@ -46,17 +46,25 @@ namespace spc
             //////////////////////
             // Public interface //
             //////////////////////
-            
-            /// <summary> Make a request for a new PhysicsObject to be created an registered with the system. </summary>
-            /// <tparam name="T"> The type of object to create, this will fail if it does not inherit from PhysicsObject. </tparam>
-            /// <returns> A new PhysicsPlane pointer. </returns>
-            template <typename T> 
-            std::shared_ptr<typename std::enable_if<std::is_base_of<PhysicsObject, T>::value, T>::type> 
-            createObject();
 
             /// <summary> Returns the default system. </summary>
             /// <returns> The default system. </returns>
             static std::shared_ptr<PhysicsSystem> defaultSystem();
+            
+            /// <summary> Make a request for a new PhysicsObject to be created an registered with the system. </summary>
+            /// <tparam name="T"> The type of object to create, this will fail if it does not inherit from PhysicsObject. </tparam>
+            /// <returns> A pointer to the specified descendant of PhysicsObject. </returns>
+            template <typename T> 
+            std::shared_ptr<typename std::enable_if<std::is_base_of<PhysicsObject, T>::value && !std::is_same<PhysicsObject, T>::value, T>::type> 
+            createObject();
+
+            /// <summary> Gets the vector containing the acceleration applied to every object each frame. <summary>
+            /// <returns> The gravity to be applied. </returns>
+            const tyga::Vector3& getGravity() const         { return m_gravity; }
+
+            /// <summary> Sets the gravity value that will be applied to every object each frame. </summary>
+            /// <param name="gravity"> The new gravity value. </param>
+            void setGravity (const tyga::Vector3& gravity)  { m_gravity = gravity; }
 
         private:
 
@@ -64,26 +72,24 @@ namespace spc
             // Delegate implementations //
             //////////////////////////////
 
+            /// <summary> Runs the collision detection algorithm for each registered object in the scene. </summary>
             void runloopWillBegin() override final;
 
+            /// <summary> Moves all objects in the scene using a numerical integration algorithm. </summary>
             void runloopExecuteTask() override final;
 
+            /// <summary> Removes all expired objects from the scene, increasing efficiency of future iterations through the std::vector. </summary>
             void runloopDidEnd() override final;
-
-
-            /////////////
-            // Utility //
-            /////////////
 
 
             ///////////////////
             // Internal data //
             ///////////////////
-            
-            tyga::Vector3                               m_gravity   { };    //!< The gravity to apply to every PhysicsObject.
-            std::vector<std::weak_ptr<PhysicsObject>>   m_objects   { };    //!< A collection of every PhysicsObject in the scene.
 
             static std::shared_ptr<PhysicsSystem>       m_defaultSystem;    //!< The default system to use be used by games.
+            
+            tyga::Vector3                               m_gravity   { };    //!< The gravity to apply to every PhysicsObject. Defaults to earths gravity.
+            std::vector<std::weak_ptr<PhysicsObject>>   m_objects   { };    //!< A collection of every PhysicsObject in the scene.
 
     };
 
@@ -92,7 +98,8 @@ namespace spc
     // Implementations //
     /////////////////////
 
-    template <typename T> std::shared_ptr<typename std::enable_if<std::is_base_of<PhysicsObject, T>::value, T>::type>  
+    template <typename T> 
+    std::shared_ptr<typename std::enable_if<std::is_base_of<PhysicsObject, T>::value && !std::is_same<PhysicsObject, T>::value, T>::type>
     PhysicsSystem::createObject()
     {
         // Create the new object.

@@ -4,6 +4,7 @@
 #include <Maths/RK4Integrator.hpp>
 #include <Maths/EulerIntegrator.hpp>
 #include <Physics/PhysicsObject.hpp>
+#include <Physics/PhysicsSphere.hpp>
 #include <cassert>
 #include <Utility/Misc.hpp>
 #include <Utility/Tyga.hpp>
@@ -51,30 +52,32 @@ namespace spc
     runloopWillBegin()
     {
         // Perform collision detection.
-        for (const auto& object : m_objects)
+        for (const auto& element : m_objects)
         {
-            
-        }
-        
-        /*for (auto s_iter = spheres_.begin(); s_iter != spheres_.end(); s_iter++)
-        {
-            // only continue if a strong reference is available
-            if (s_iter->expired()) continue;
-            auto sphere = s_iter->lock();
+            const auto lock = element.lock();
 
-            // very crude ground plane collision detection and response
-            // TODO: this could be improved
-            const auto& p = sphere->position();
-            if (p.y < sphere->radius) {
-                sphere->velocity.y = 0;
-                auto actor = sphere->Actor();
-                if (actor != nullptr) {
-                    auto xform = actor->Transformation();
-                    xform._31 = sphere->radius;
-                    actor->setTransformation(xform);
+            if (lock && lock->getType() == PhysicsObject::Type::Sphere)
+            {
+                // We can safely downcast because of the implementation of the getType function.
+                auto& object = *std::static_pointer_cast<PhysicsSphere> (lock);
+
+                // Ensure the actor is valid.
+                const auto actor = object.Actor();
+                if (actor)
+                {
+                    // Obtain the transform and position of the sphere.
+                    auto transform      = actor->Transformation();
+                    const auto position = util::position (transform);
+
+                    if (position.y < object.radius)
+                    {
+                        object.velocity.y = 0.f;
+                        transform._31 = object.radius;
+                        actor->setTransformation (transform);
+                    }
                 }
             }
-        }*/
+        }
     }
 
     void PhysicsSystem::
@@ -87,35 +90,31 @@ namespace spc
         for (const auto& element : m_objects) 
         {
             // Only process the sphere if the object exists and it has an actor.
-            const auto model = element.lock();
-            const auto actor = model ? model->Actor() : nullptr;
+            const auto lock  = element.lock();
+            const auto actor = lock ? lock->Actor() : nullptr;
         
             if (actor) 
             { 
                 // Cache the physics object.
-                auto& object = *model;
+                auto& object = *lock;
 
-                tyga::Vector3 translation { };
-
-                const auto acceleration = object.force / object.getMass() + m_gravity;
-
-                const auto& calcAccel = [&] (const tyga::Vector3& position, const tyga::Vector3& velocity, const float deltaTime)
+                // Create a function to calculate the acceleration of the object.
+                const auto calcAccel = [&] (const tyga::Vector3& position, const tyga::Vector3& velocity, const float deltaTime)
                 {
-                    //return acceleration;
                     const float k = 1.0f;
                     const float b = 0.3f;
                     return (-k * position - b * velocity + object.force) / object.getMass() + m_gravity;
                 };
             
-                RK4Integrator<tyga::Vector3, float>::integrate (translation, object.velocity, calcAccel, 0, deltaTime);
-                //EulerIntegrator<tyga::Vector3, float>::integrate (translation, object.velocity, acceleration, deltaTime);
+                // Use the Runge-Kutta order of 4 method to integrate an accurate solution.
+                tyga::Vector3 translation { };
+                RK4Integrator<tyga::Vector3, float>::integrate (translation, object.velocity, calcAccel, time, deltaTime);
 
-            
-                // TODO: update the actor's transformation
+                // Update the transformation.
                 actor->setTransformation (actor->Transformation() * util::translate (translation.x, translation.y, translation.z));
 
-                // reset the force
-                model->force = tyga::Vector3(0,0,0);
+                // Reset the applied force.
+                object.force = tyga::Vector3(0,0,0);
             }
         }
     }
