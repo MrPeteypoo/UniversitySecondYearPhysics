@@ -91,5 +91,8 @@
     <ClInclude Include="..\..\Utility\Misc.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Physics\CollisionDetection.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

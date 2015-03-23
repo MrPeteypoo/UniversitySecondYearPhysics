@@ -120,6 +120,7 @@
     <ClInclude Include="..\..\Framework\MyDemo.hpp" />
     <ClInclude Include="..\..\Maths\EulerIntegrator.hpp" />
     <ClInclude Include="..\..\Maths\RK4Integrator.hpp" />
+    <ClInclude Include="..\..\Physics\CollisionDetection.hpp" />
     <ClInclude Include="..\..\Physics\PhysicsBox.hpp" />
     <ClInclude Include="..\..\Physics\PhysicsObject.hpp" />
     <ClInclude Include="..\..\Physics\PhysicsPlane.hpp" />
