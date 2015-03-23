@@ -20,9 +20,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Physics\MyPhysicsCentre.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Framework\Camera.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -32,17 +29,29 @@
     <ClCompile Include="..\..\Actors\ToyMine.cpp">
       <Filter>Actors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Utility\MyUtils.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\main.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Physics\PhysicsSystem.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Physics\PhysicsBox.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Physics\PhysicsObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Physics\PhysicsPlane.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Physics\PhysicsSphere.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Utility\Tyga.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Physics\MyPhysicsCentre.hpp">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Framework\Badger.hpp">
       <Filter>Framework</Filter>
     </ClInclude>
@@ -55,14 +64,32 @@
     <ClInclude Include="..\..\Actors\ToyMine.hpp">
       <Filter>Actors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Utility\MyUtils.hpp">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Maths\EulerIntegrator.hpp">
       <Filter>Maths</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Maths\RK4Integrator.hpp">
       <Filter>Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Physics\PhysicsSystem.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Physics\PhysicsBox.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Physics\PhysicsObject.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Physics\PhysicsPlane.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Physics\PhysicsSphere.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Utility\Tyga.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Utility\Misc.hpp">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,7 +2,8 @@
 #include "Badger.hpp"
 #include "Camera.hpp"
 #include <Actors/ToyMine.hpp>
-#include <Physics/MyPhysicsCentre.hpp>
+#include <Physics/PhysicsSystem.hpp>
+#include <Physics/PhysicsBox.hpp>
 #include <tyga/Application.hpp>
 #include <tyga/ActorWorld.hpp>
 #include <tyga/InputStateProtocol.hpp>
@@ -46,7 +47,7 @@ applicationDidStart()
     renderer_ = std::make_shared<tyga::BasicRenderer>();
     tyga::Application::setWindowViewDelegate(renderer_);
 
-    tyga::Application::addRunloopTask(MyPhysicsCentre::defaultCentre());
+    tyga::Application::addRunloopTask(spc::PhysicsSystem::defaultSystem());
     tyga::Application::addRunloopTask(tyga::GraphicsCentre::defaultCentre());
     tyga::Application::addRunloopTask(tyga::ActorWorld::defaultWorld());
 
@@ -55,7 +56,7 @@ applicationDidStart()
 
     auto world = tyga::ActorWorld::defaultWorld();
     auto graphics = tyga::GraphicsCentre::defaultCentre();
-    auto physics = MyPhysicsCentre::defaultCentre();
+    auto physics = spc::PhysicsSystem::defaultSystem();
 
 
     auto floor_mesh = graphics->newMeshWithIdentifier("cube");
@@ -82,7 +83,7 @@ applicationDidStart()
 
 
     badger_ = Badger::makeBadgerWithBloke(world);
-    auto badger_box = physics->newBox();
+    auto badger_box = physics->createObject<spc::PhysicsBox>();
     badger_->boundsActor()->attachComponent(badger_box);
 
 
@@ -204,7 +205,7 @@ resetToys()
 
     toys_.resize(n_rand(rand));
     for (auto& toy : toys_) {
-        toy = std::make_shared<ToyMine>();
+        toy = std::make_shared<spc::ToyMine>();
         toy->addToWorld(world);
         auto position = tyga::Vector3(x_rand(rand), y_rand(rand), z_rand(rand));
         auto mass = m_rand(rand);

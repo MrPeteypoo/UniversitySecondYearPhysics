@@ -8,7 +8,7 @@
 
 class Badger;
 class Camera;
-class ToyMine;
+namespace spc { class ToyMine; }
 
 class MyDemo : public tyga::ApplicationDelegate
 {
@@ -58,7 +58,7 @@ private:
     static const tyga::Vector3 MIN_BOUND;
     static const tyga::Vector3 MAX_BOUND;
 
-    std::vector<std::shared_ptr<ToyMine>> toys_;
+    std::vector<std::shared_ptr<spc::ToyMine>> toys_;
 
     float trigger_time_;
 };

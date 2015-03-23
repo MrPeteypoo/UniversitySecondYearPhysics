@@ -106,8 +106,12 @@
     <ClCompile Include="..\..\Framework\Camera.cpp" />
     <ClCompile Include="..\..\Framework\MyDemo.cpp" />
     <ClCompile Include="..\..\main.cpp" />
-    <ClCompile Include="..\..\Physics\MyPhysicsCentre.cpp" />
-    <ClCompile Include="..\..\Utility\MyUtils.cpp" />
+    <ClCompile Include="..\..\Physics\PhysicsBox.cpp" />
+    <ClCompile Include="..\..\Physics\PhysicsObject.cpp" />
+    <ClCompile Include="..\..\Physics\PhysicsPlane.cpp" />
+    <ClCompile Include="..\..\Physics\PhysicsSphere.cpp" />
+    <ClCompile Include="..\..\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="..\..\Utility\Tyga.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Actors\ToyMine.hpp" />
@@ -116,8 +120,13 @@
     <ClInclude Include="..\..\Framework\MyDemo.hpp" />
     <ClInclude Include="..\..\Maths\EulerIntegrator.hpp" />
     <ClInclude Include="..\..\Maths\RK4Integrator.hpp" />
-    <ClInclude Include="..\..\Physics\MyPhysicsCentre.hpp" />
-    <ClInclude Include="..\..\Utility\MyUtils.hpp" />
+    <ClInclude Include="..\..\Physics\PhysicsBox.hpp" />
+    <ClInclude Include="..\..\Physics\PhysicsObject.hpp" />
+    <ClInclude Include="..\..\Physics\PhysicsPlane.hpp" />
+    <ClInclude Include="..\..\Physics\PhysicsSphere.hpp" />
+    <ClInclude Include="..\..\Physics\PhysicsSystem.hpp" />
+    <ClInclude Include="..\..\Utility\Misc.hpp" />
+    <ClInclude Include="..\..\Utility\Tyga.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

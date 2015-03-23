@@ -54,16 +54,13 @@ template <typename T, typename U = float> class RK4Integrator
         /// <param name="time"> A time value to base the evaluation off. </param>
         /// <param name="delta"> The delta value to use. </param>
         /// <returns> An evaluation of velocity and acceleration after the given time point. </returns>
-        static Evaluation calculate (const T& pos, const T& vel, const Evaluation& prev, const AccelFunc& accel, const U time, const U delta)
-        {
-            // Use Euler to calculate the new position and velocity.
-            const auto position = pos + prev.velocity * delta;
-            const auto velocity = vel + prev.acceleration * delta;
-
-            // Use the given acceleration function to calculate the acceleration to return.
-            return { velocity, accel (position, velocity, time + delta) };
-        }
+        static Evaluation calculate (const T& pos, const T& vel, const Evaluation& prev, const AccelFunc& accel, const U time, const U delta);
 };
+
+
+/////////////////////
+// Implementations //
+/////////////////////
 
 template <typename T, typename U> void 
 RK4Integrator<T, U>::integrate (T& position, T& velocity, const AccelFunc& calcAcceleration, const U time, const U deltaTime)
@@ -97,6 +94,18 @@ RK4Integrator<T, U>::integrate (T& position, T& velocity, const AccelFunc& calcA
     // Finally modify the position and velocity values.
     position += positionChange * deltaTime;
     velocity += velocityChange * deltaTime;
+}
+
+
+template <typename T, typename U> typename RK4Integrator<T, U>::Evaluation
+RK4Integrator<T, U>::calculate (const T& pos, const T& vel, const Evaluation& prev, const AccelFunc& accel, const U time, const U delta)
+{
+    // Use Euler to calculate the new position and velocity.
+    const auto position = pos + prev.velocity * delta;
+    const auto velocity = vel + prev.acceleration * delta;
+
+    // Use the given acceleration function to calculate the acceleration to return.
+    return { velocity, accel (position, velocity, time + delta) };
 }
 
 #endif

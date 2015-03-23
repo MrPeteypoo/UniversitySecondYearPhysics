@@ -1,34 +1,44 @@
-#pragma once
+#ifndef SPC_TOY_MINE_ASP_HPP
+#define SPC_TOY_MINE_ASP_HPP
 
+
+// Engine headers.
 #include <tyga/ActorDelegate.hpp>
-#include <Physics/MyPhysicsCentre.hpp>
 
-class ToyMine : public tyga::ActorDelegate
+
+// Forward declarations.
+namespace tyga { class Vector3; }
+
+
+namespace spc
 {
-public:
+    // Forward declarations.
+    class PhysicsSphere;
 
-    ToyMine();
 
-    void
-    reset(tyga::Vector3 position, float mass);
+    class ToyMine final : public tyga::ActorDelegate
+    {
+        public:
 
-    void
-    applyForce(tyga::Vector3 force);
+            ToyMine();
 
-    void
-    trigger();
+            void reset(const tyga::Vector3& position, const float mass);
 
-private:
+            void applyForce(const tyga::Vector3& force);
 
-    virtual void
-    actorDidEnterWorld(std::shared_ptr<tyga::Actor> actor) override;
+            void trigger();
 
-    virtual void
-    actorWillLeaveWorld(std::shared_ptr<tyga::Actor> actor) override;
+        private:
 
-    virtual void
-    actorClockTick(std::shared_ptr<tyga::Actor> actor) override;
+            void actorDidEnterWorld(std::shared_ptr<tyga::Actor> actor) override;
 
-    std::shared_ptr<PhysicsSphere> physics_model_;
+            void actorWillLeaveWorld(std::shared_ptr<tyga::Actor> actor) override;
 
-};
+            void actorClockTick(std::shared_ptr<tyga::Actor> actor) override;
+
+            std::shared_ptr<spc::PhysicsSphere> physics_model_;
+
+    };
+}
+
+#endif
