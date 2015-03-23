@@ -6,3 +6,4 @@
 *.opensdf
 *.user
 *.suo
+~*.vcxproj
