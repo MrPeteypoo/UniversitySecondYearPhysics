@@ -34,7 +34,7 @@ namespace spc
 
             /// <summary> Obtains the castable type of the PhysicsObject. </summary>
             /// <returns> PhysicsObject::Type::Sphere. </returns>
-            Type getType() const override final { return Type::Sphere; }
+            inline Type getType() const override final { return Type::Sphere; }
             
 
             /////////////////

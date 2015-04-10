@@ -34,7 +34,7 @@ namespace spc
 
             /// <summary> Obtains the castable type of the PhysicsObject. </summary>
             /// <returns> PhysicsObject::Type::Sphere. </returns>
-            Type getType() const override final { return Type::Box; }
+            inline Type getType() const override final { return Type::Box; }
 
             /// <summary> Obtains a vector containing the rotation on the X axis of the box. </summary>
             /// <returns> A rotation vector. </returns>

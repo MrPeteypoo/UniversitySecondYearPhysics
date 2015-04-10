@@ -34,7 +34,7 @@ namespace spc
 
             /// <summary> Obtains the castable type of the PhysicsObject. </summary>
             /// <returns> PhysicsObject::Type::Sphere. </returns>
-            Type getType() const override final { return Type::Plane; }
+            inline Type getType() const override final { return Type::Plane; }
 
             /// <summary> Calculates the normal vector of the plane from the actors transformation. </summary>
             /// <returns> The normal direction of the plane. </returns>

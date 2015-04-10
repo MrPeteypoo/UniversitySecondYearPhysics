@@ -46,7 +46,7 @@ namespace spc
 
             /// <summary> Queries an object to determine a suitable type to downcast to. </summary>
             /// <returns> The castable type of the object. </returns>
-            virtual Type getType() const = 0;
+            inline virtual Type getType() const = 0;
 
             /// <summary> Calculate the world position of the object from the Actors transform. </summary>
             /// <returns> The position of the object. </returns>

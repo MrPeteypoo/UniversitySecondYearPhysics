@@ -1,11 +1,20 @@
 #include "PhysicsSystem.hpp"
+
+
+// STL headers.
+#include <cassert>
+
+
+// Engine headers.
 #include <tyga/BasicWorldClock.hpp>
 #include <tyga/Log.hpp>
+
+
+// Personal headers.
 #include <Maths/RK4Integrator.hpp>
 #include <Maths/EulerIntegrator.hpp>
 #include <Physics/PhysicsObject.hpp>
 #include <Physics/PhysicsSphere.hpp>
-#include <cassert>
 #include <Utility/Misc.hpp>
 #include <Utility/Tyga.hpp>
 
