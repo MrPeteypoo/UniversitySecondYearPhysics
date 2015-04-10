@@ -23,7 +23,7 @@ namespace spc
             //////////////////////
 
             /// <summary> Detects if any collision has happened between two PhysicsObject types. </summary>
-            static void detectCollision (const PhysicsObject& lhs, const PhysicsObject& rhs);
+            static void detectCollision (PhysicsObject& lhs, PhysicsObject& rhs);
 
         private:
 
@@ -32,25 +32,25 @@ namespace spc
             /// <param name="rhs"> The object to be cast to U. </param>
             /// <param name="function"> The function to pass the objects to. </param>
             template <typename T, typename U, typename V> 
-            static void passToFunction (const PhysicsObject& lhs, const PhysicsObject& rhs, const V& function);
+            static void passToFunction (PhysicsObject& lhs, PhysicsObject& rhs, const V& function);
             
             /// <summary> Handles sphere on sphere collision. </summary>
-            static void sphereSphereCollision (const PhysicsSphere& lhs, const PhysicsSphere& rhs);
+            static void sphereSphereCollision (PhysicsSphere& lhs, PhysicsSphere& rhs);
 
             /// <summary> Handles sphere on box collision. </summary>
-            static void sphereBoxCollision (const PhysicsSphere& sphere, const PhysicsBox& box);
+            static void sphereBoxCollision (PhysicsSphere& sphere, PhysicsBox& box);
 
             /// <summary> Handles sphere on plane collision. </summary>
-            static void spherePlaneCollision (const PhysicsSphere& sphere, const PhysicsPlane& plane);
+            static void spherePlaneCollision (PhysicsSphere& sphere, PhysicsPlane& plane);
 
             /// <summary> Handles box on box collision. </summary>
-            static void boxBoxCollision (const PhysicsBox& lhs, const PhysicsBox& rhs);
+            static void boxBoxCollision (PhysicsBox& lhs, PhysicsBox& rhs);
 
             /// <summary> Handles box on plane collision. </summary>
-            static void boxPlaneCollision (const PhysicsBox& box, const PhysicsPlane& plane);
+            static void boxPlaneCollision (PhysicsBox& box, PhysicsPlane& plane);
 
             /// <summary> Handles plane on plane collision. </summary>
-            static void planePlaneCollision (const PhysicsPlane& lhs, const PhysicsPlane& rhs);
+            static void planePlaneCollision (PhysicsPlane& lhs, PhysicsPlane& rhs);
     };
 }
 

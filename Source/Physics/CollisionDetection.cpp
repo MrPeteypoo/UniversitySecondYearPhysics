@@ -9,18 +9,20 @@
 #include <Physics/PhysicsBox.hpp>
 #include <Physics/PhysicsPlane.hpp>
 #include <Physics/PhysicsSphere.hpp>
+#include <Utility/Misc.hpp>
+#include <Utility/Tyga.hpp>
 
 
 namespace spc
 {
     template <typename T, typename U, typename V>
-    void CollisionDetection::passToFunction (const PhysicsObject& lhs, const PhysicsObject& rhs, const V& function)
+    void CollisionDetection::passToFunction (PhysicsObject& lhs, PhysicsObject& rhs, const V& function)
     {
-        function (static_cast<const T&> (lhs), static_cast<const U&> (rhs));
+        function (static_cast<T&> (lhs), static_cast<U&> (rhs));
     }
 
 
-    void CollisionDetection::detectCollision (const PhysicsObject& lhs, const PhysicsObject& rhs)
+    void CollisionDetection::detectCollision (PhysicsObject& lhs, PhysicsObject& rhs)
     {
         // We need to check which type each object is castable to.
         const auto lhsType = lhs.getType();
@@ -82,42 +84,52 @@ namespace spc
             default:
                 assert (false);
                 break;
-
         }
     }
 
 
-    void CollisionDetection::sphereSphereCollision (const PhysicsSphere& lhs, const PhysicsSphere& rhs)
+    void CollisionDetection::sphereSphereCollision (PhysicsSphere& lhs, PhysicsSphere& rhs)
+    {
+        // We need the position of each object.
+        const auto lhsPos = lhs.position(),
+                   rhsPos = rhs.position();
+
+        // The square length will be lower than the sum of the squared radius of each sphere if there is a collision.
+        const auto distanceSqr = util::sqrLength (lhsPos - rhsPos);
+
+        if (distanceSqr < util::squared (lhs.radius) + util::squared (rhs.radius))
+        {
+            // We've collided!
+            lhs.radius;
+        }
+    }
+
+
+    void CollisionDetection::sphereBoxCollision (PhysicsSphere& sphere, PhysicsBox& box)
     {
     
     }
 
 
-    void CollisionDetection::sphereBoxCollision (const PhysicsSphere& sphere, const PhysicsBox& box)
+    void CollisionDetection::spherePlaneCollision (PhysicsSphere& sphere, PhysicsPlane& plane)
     {
     
     }
 
 
-    void CollisionDetection::spherePlaneCollision (const PhysicsSphere& sphere, const PhysicsPlane& plane)
+    void CollisionDetection::boxBoxCollision (PhysicsBox& lhs, PhysicsBox& rhs)
     {
     
     }
 
 
-    void CollisionDetection::boxBoxCollision (const PhysicsBox& lhs, const PhysicsBox& rhs)
+    void CollisionDetection::boxPlaneCollision (PhysicsBox& box, PhysicsPlane& plane)
     {
     
     }
 
 
-    void CollisionDetection::boxPlaneCollision (const PhysicsBox& box, const PhysicsPlane& plane)
-    {
-    
-    }
-
-
-    void CollisionDetection::planePlaneCollision (const PhysicsPlane& lhs, const PhysicsPlane& rhs)
+    void CollisionDetection::planePlaneCollision (PhysicsPlane& lhs, PhysicsPlane& rhs)
     {
     
     }
