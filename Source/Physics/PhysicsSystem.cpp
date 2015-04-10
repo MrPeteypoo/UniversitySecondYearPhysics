@@ -13,6 +13,7 @@
 // Personal headers.
 #include <Maths/RK4Integrator.hpp>
 #include <Maths/EulerIntegrator.hpp>
+#include <Physics/CollisionDetection.hpp>
 #include <Physics/PhysicsObject.hpp>
 #include <Physics/PhysicsSphere.hpp>
 #include <Utility/Misc.hpp>
@@ -83,6 +84,27 @@ namespace spc
                         object.velocity.y = 0.f;
                         transform._31 = object.radius;
                         actor->setTransformation (transform);
+                    }
+                }
+            }
+        }
+        
+        // Test every object against every other object.
+        for (auto i = 0U; i < m_objects.size(); ++i)
+        {
+            // Don't bother checking anything if the object has expired.
+            const auto lockI = m_objects[i].lock();
+
+            if (lockI)
+            {
+                for (auto j = i + 1; j < m_objects.size(); ++j)
+                {
+                    // Again, don't bother checking for collision if the object has expired.
+                    const auto lockJ = m_objects[j].lock();
+
+                    if (lockJ)
+                    {
+                        CollisionDetection::detectCollision (*lockI, *lockJ);
                     }
                 }
             }

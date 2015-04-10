@@ -26,9 +26,16 @@ namespace spc
             static void detectCollision (const PhysicsObject& lhs, const PhysicsObject& rhs);
 
         private:
+
+            /// <summary> Cast two objects to the specified types and pass them to the desired function. </summary>
+            /// <param name="lhs"> The object to be cast to T. </param>
+            /// <param name="rhs"> The object to be cast to U. </param>
+            /// <param name="function"> The function to pass the objects to. </param>
+            template <typename T, typename U, typename V> 
+            static void passToFunction (const PhysicsObject& lhs, const PhysicsObject& rhs, const V& function);
             
             /// <summary> Handles sphere on sphere collision. </summary>
-            static void sphereSphereCollison (const PhysicsSphere& lhs, const PhysicsSphere& rhs);
+            static void sphereSphereCollision (const PhysicsSphere& lhs, const PhysicsSphere& rhs);
 
             /// <summary> Handles sphere on box collision. </summary>
             static void sphereBoxCollision (const PhysicsSphere& sphere, const PhysicsBox& box);
