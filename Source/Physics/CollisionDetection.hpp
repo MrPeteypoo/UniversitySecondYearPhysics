@@ -24,6 +24,26 @@ namespace spc
 
             /// <summary> Detects if any collision has happened between two PhysicsObject types. </summary>
             static void detectCollision (const PhysicsObject& lhs, const PhysicsObject& rhs);
+
+        private:
+            
+            /// <summary> Handles sphere on sphere collision. </summary>
+            static void sphereSphereCollison (const PhysicsSphere& lhs, const PhysicsSphere& rhs);
+
+            /// <summary> Handles sphere on box collision. </summary>
+            static void sphereBoxCollision (const PhysicsSphere& sphere, const PhysicsBox& box);
+
+            /// <summary> Handles sphere on plane collision. </summary>
+            static void spherePlaneCollision (const PhysicsSphere& sphere, const PhysicsPlane& plane);
+
+            /// <summary> Handles box on box collision. </summary>
+            static void boxBoxCollision (const PhysicsBox& lhs, const PhysicsBox& rhs);
+
+            /// <summary> Handles box on plane collision. </summary>
+            static void boxPlaneCollision (const PhysicsBox& box, const PhysicsPlane& plane);
+
+            /// <summary> Handles plane on plane collision. </summary>
+            static void planePlaneCollision (const PhysicsPlane& lhs, const PhysicsPlane& rhs);
     };
 }
 

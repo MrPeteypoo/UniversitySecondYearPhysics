@@ -50,6 +50,9 @@
     <ClCompile Include="..\..\Utility\Tyga.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Physics\CollisionDetection.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Framework\Badger.hpp">

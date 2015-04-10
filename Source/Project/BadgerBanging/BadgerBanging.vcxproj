@@ -106,6 +106,7 @@
     <ClCompile Include="..\..\Framework\Camera.cpp" />
     <ClCompile Include="..\..\Framework\MyDemo.cpp" />
     <ClCompile Include="..\..\main.cpp" />
+    <ClCompile Include="..\..\Physics\CollisionDetection.cpp" />
     <ClCompile Include="..\..\Physics\PhysicsBox.cpp" />
     <ClCompile Include="..\..\Physics\PhysicsObject.cpp" />
     <ClCompile Include="..\..\Physics\PhysicsPlane.cpp" />
