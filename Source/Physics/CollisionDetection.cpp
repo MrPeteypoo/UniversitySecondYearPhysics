@@ -95,12 +95,29 @@ namespace spc
                    rhsPos = rhs.position();
 
         // The square length will be lower than the sum of the squared radius of each sphere if there is a collision.
-        const auto distanceSqr = util::sqrLength (lhsPos - rhsPos);
+        const auto distance  = lhsPos - rhsPos;
+        const auto lengthSqr = util::sqrLength (lhsPos - rhsPos),
+                   radiusSum = lhs.radius + rhs.radius;
 
-        if (distanceSqr < util::squared (lhs.radius) + util::squared (rhs.radius))
+        if (lengthSqr < util::squared (radiusSum))
         {
-            // We've collided!
-            lhs.radius;
+            // We've collided! Move the objects out of collision with each other.
+            const auto length     = std::sqrt (lengthSqr);
+            const auto direction  = distance / length,
+                       correction = direction * (length - radiusSum);
+
+            const auto lhsActor = lhs.Actor(),
+                       rhsActor = rhs.Actor();
+
+            if (lhsActor)
+            {
+                lhsActor->setTransformation (lhsActor->Transformation() * util::translate (correction * -0.5001f));
+            }
+
+            if (rhsActor)
+            {
+                rhsActor->setTransformation (rhsActor->Transformation() * util::translate (correction * 0.5001f));
+            }
         }
     }
 
