@@ -4,6 +4,8 @@
 #include <Actors/ToyMine.hpp>
 #include <Physics/PhysicsSystem.hpp>
 #include <Physics/PhysicsBox.hpp>
+#include <Physics/PhysicsPlane.hpp>
+#include <Physics/PhysicsSphere.hpp>
 #include <tyga/Application.hpp>
 #include <tyga/ActorWorld.hpp>
 #include <tyga/InputStateProtocol.hpp>
@@ -68,6 +70,9 @@ applicationDidStart()
     floor_model->mesh = floor_mesh;
     auto floor_actor = std::make_shared<tyga::Actor>();
     floor_actor->attachComponent(floor_model);
+    auto floor_plane = physics->createObject<spc::PhysicsPlane>();
+    floor_plane->isStatic = true;
+    floor_actor->attachComponent (floor_plane);
     auto floor_xform = tyga::Matrix4x4(      40,       0,       0,       0,
                                               0,    0.2f,       0,       0,
                                               0,       0,      20,       0,
@@ -83,7 +88,10 @@ applicationDidStart()
 
 
     badger_ = Badger::makeBadgerWithBloke(world);
-    auto badger_box = physics->createObject<spc::PhysicsBox>();
+    auto badger_box = physics->createObject<spc::PhysicsSphere>();
+    badger_box->isStatic = true;
+    badger_box->radius = 1.5f;
+    badger_box->name = "Badger";
     badger_->boundsActor()->attachComponent(badger_box);
 
 

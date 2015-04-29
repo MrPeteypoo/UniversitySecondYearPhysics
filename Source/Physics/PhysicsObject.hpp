@@ -2,6 +2,11 @@
 #define SPC_PHYSICS_OBJECT_ASP_HPP
 
 
+// STL headers.
+#include <functional>
+#include <string>
+
+
 // Engine headers.
 #include <tyga/Actor.hpp>
 #include <tyga/Math.hpp>
@@ -54,19 +59,30 @@ namespace spc
 
             /// <summary> Gets the mass of the object. </summary>
             /// <returns> The mass of the object in kilograms. </returns>
-            float getMass() const { return m_mass; }
+            float getMass() const           { return m_mass; }
 
             /// <summary> Sets the mass of the object. </summary>
             /// <param name="mass"> A new mass in kilograms, this cannot be set to 0. </param>
             void setMass (const float mass);
 
+
+            ////////////
+            // Events //
+            ////////////
+
+            std::function<void (PhysicsObject&)> onCollide { }; //!< The function to be called upon contact with another object.
             
+
             /////////////////
             // Public data //
-            /////////////////
+            /////////////////            
 
-            tyga::Vector3   velocity    { };    //!< The current velocity of the object.
-            tyga::Vector3   force       { };    //!< The force to be applied to the object on the next physics update.
+            std::string     name        = "N/A";    //!< The name of the object being collided with.
+            tyga::Vector3   velocity    { };        //!< The current velocity of the object.
+            tyga::Vector3   force       { };        //!< The force to be applied to the object on the next physics update.
+            float           drag        { 0.1f };   //!< A drag co-efficient which slows objects down.
+            float           restitution { 0.5f } ;  //!< The amount of velocity maintained upon collision.
+            bool            isStatic    { false };  //!< Determines whether the object should feature collision response.
 
         protected:
 

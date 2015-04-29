@@ -25,12 +25,20 @@ namespace spc
     {
         if (this != &move)
         {
-            velocity = std::move (velocity);
-            force    = std::move (force);
-            m_mass   = move.m_mass;
+            // Move thy data.
+            velocity    = std::move (velocity);
+            force       = std::move (force);
+            drag        = move.drag;
+            restitution = move.restitution;
+            isStatic    = move.isStatic;
+
+            m_mass      = move.m_mass;
 
             // Reset primitives.
-            move.m_mass = 0.f;
+            move.drag        = 0.f;
+            move.restitution = 0.f;
+            move.isStatic    = false;
+            move.m_mass      = 0.f;
         }
 
         return *this;

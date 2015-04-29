@@ -62,7 +62,7 @@ namespace spc
     runloopWillBegin()
     {
         // Perform collision detection.
-        for (const auto& element : m_objects)
+        /*for (const auto& element : m_objects)
         {
             const auto lock = element.lock();
 
@@ -87,7 +87,7 @@ namespace spc
                     }
                 }
             }
-        }
+        }*/
         
         // Test every object against every other object.
         for (auto i = 0U; i < m_objects.size(); ++i)
@@ -102,7 +102,8 @@ namespace spc
                     // Again, don't bother checking for collision if the object has expired.
                     const auto lockJ = m_objects[j].lock();
 
-                    if (lockJ)
+                    // Don't check static on static collision.
+                    if (lockJ && (!lockI->isStatic || !lockJ->isStatic))
                     {
                         CollisionDetection::detectCollision (*lockI, *lockJ);
                     }
@@ -129,23 +130,28 @@ namespace spc
                 // Cache the physics object.
                 auto& object = *lock;
 
-                // Create a function to calculate the acceleration of the object.
-                const auto calcAccel = [&] (const tyga::Vector3& position, const tyga::Vector3& velocity, const float deltaTime)
+                if (!object.isStatic)
                 {
-                    const float k = 1.0f;
-                    const float b = 0.3f;
-                    return (-k * position - b * velocity + object.force) / object.getMass() + m_gravity;
-                };
+                    // Create a function to calculate the acceleration of the object.
+                    const auto calcAccel = [&] (const tyga::Vector3& position, const tyga::Vector3& velocity, const float deltaTime)
+                    {
+                        const auto force   = object.force / object.getMass(),
+                                   gravity = m_gravity,
+                                   drag    = velocity * -object.drag;
+                        
+                        return force + drag + gravity;
+                    };
             
-                // Use the Runge-Kutta order of 4 method to integrate an accurate solution.
-                tyga::Vector3 translation { };
-                RK4Integrator<tyga::Vector3, float>::integrate (translation, object.velocity, calcAccel, time, deltaTime);
+                    // Use the Runge-Kutta order of 4 method to integrate an accurate solution.
+                    tyga::Vector3 translation { };
+                    RK4Integrator<tyga::Vector3, float>::integrate (translation, object.velocity, calcAccel, time, deltaTime);
 
-                // Update the transformation.
-                actor->setTransformation (actor->Transformation() * util::translate (translation.x, translation.y, translation.z));
+                    // Update the transformation.
+                    actor->setTransformation (actor->Transformation() * util::translate (translation.x, translation.y, translation.z));
 
-                // Reset the applied force.
-                object.force = tyga::Vector3(0,0,0);
+                    // Reset the applied force.
+                    object.force = tyga::Vector3(0,0,0);
+                }
             }
         }
     }

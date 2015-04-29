@@ -9,8 +9,8 @@
 /// <summary>
 /// A physics integrator which implements the Runge-Kutta method to provide pretty accurate simulation.
 /// </summary>
-/// <tparam name="T"> The type used when integrating values. </tparam>
-/// <tparam name="U"> A type used for time values, typically a float or a double. </tparam>
+/// <param name="T"> The type used when integrating values. </param>
+/// <param name="U"> A type used for time values, typically a float or a double. </param>
 template <typename T, typename U = float> class RK4Integrator
 {
     public:

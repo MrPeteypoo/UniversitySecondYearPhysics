@@ -2,6 +2,10 @@
 #define SPC_COLLISION_DETECTION_ASP_HPP
 
 
+// Forward declarations.
+namespace tyga { class Actor; class Vector3; }
+
+
 namespace spc
 {
     // Forward declarations.
@@ -51,6 +55,13 @@ namespace spc
 
             /// <summary> Handles plane on plane collision. </summary>
             static void planePlaneCollision (PhysicsPlane& lhs, PhysicsPlane& rhs);
+
+            /// <summary> Performs collision response on the two given objects. </summary>
+            /// <param name="lhs"> The first object. </param>
+            /// <param name="rhs"> The second second. </param>
+            /// <param name="normal"> The normal vector of the collision. </param>
+            /// <param name="intersection"> How much the objects are colliding by. </param>
+            static void collisionResponse (PhysicsObject& lhs, PhysicsObject& rhs, const tyga::Vector3& normal, const float intersection);
     };
 }
 

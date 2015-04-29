@@ -39,10 +39,10 @@ namespace spc
 
     tyga::Vector3 PhysicsPlane::normal() const
     {
-        // The normal is stored the same way the Z rotation is for box colliders so we can take advantage of that.
+        // The normal is stored the same way the Y rotation is for box colliders so we can take advantage of that.
         const auto transform = util::transformation (*this);
 
         // Return the position vector.
-        return util::zRotation (transform);
+        return util::yRotation (transform);
     }
 }

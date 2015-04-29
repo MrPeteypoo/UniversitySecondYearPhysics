@@ -52,7 +52,7 @@ namespace spc
             static std::shared_ptr<PhysicsSystem> defaultSystem();
             
             /// <summary> Make a request for a new PhysicsObject to be created an registered with the system. </summary>
-            /// <tparam name="T"> The type of object to create, this will fail if it does not inherit from PhysicsObject. </tparam>
+            /// <param name="T"> The type of object to create, this will fail if it does not inherit from PhysicsObject. </param>
             /// <returns> A pointer to the specified descendant of PhysicsObject. </returns>
             template <typename T> 
             std::shared_ptr<typename std::enable_if<std::is_base_of<PhysicsObject, T>::value && !std::is_same<PhysicsObject, T>::value, T>::type> 
